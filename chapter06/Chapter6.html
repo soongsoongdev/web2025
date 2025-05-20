@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Chapter 6 - 이벤트와 이벤트 처리</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        th {
+            background-color: #f0f4f8;
+            color: #333;
+            font-weight: 600;
+            padding: 10px;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Chapter 6 - 이벤트와 이벤트 처리</h1>
+
+<h2>1. 이벤트란 무엇인가?</h2>
+<p>
+    이벤트는 사용자의 행동이나 시스템의 변화 등 웹 페이지에서 발생하는 다양한 **상호작용을 감지하고 처리하는 방식**을 말합니다.
+    예를 들어 버튼 클릭, 키보드 입력, 마우스 움직임 등이 모두 이벤트입니다.
+</p>
+
+<h3>브라우저에서 자주 사용되는 이벤트 예시</h3>
+<table>
+    <thead>
+    <tr>
+        <th>이벤트</th>
+        <th>설명</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>click</td>
+        <td>요소를 클릭했을 때</td>
+    </tr>
+    <tr>
+        <td>keydown</td>
+        <td>키보드 키를 누를 때</td>
+    </tr>
+    <tr>
+        <td>change</td>
+        <td>폼 입력값이 바뀌었을 때</td>
+    </tr>
+    <tr>
+        <td>submit</td>
+        <td>폼이 제출되었을 때</td>
+    </tr>
+    <tr>
+        <td>load</td>
+        <td>문서 또는 이미지가 완전히 로딩됐을 때</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>이벤트를 감지하는 기본 구조</h3>
+<pre>
+const button = document.querySelector("button");
+button.addEventListener("click", () => {
+  alert("버튼을 클릭했습니다.");
+});
+  </pre>
+
+<h2>2. 이벤트 객체와 활용</h2>
+<p>
+    이벤트가 발생하면 자동으로 **event 객체**가 전달되어 다양한 정보를 확인할 수 있습니다.
+    예를 들어 어떤 요소에서 이벤트가 발생했는지, 어떤 키를 눌렀는지 등을 알 수 있습니다.
+</p>
+
+<h3>주요 event 객체 속성</h3>
+<ul>
+    <li><code>e.target</code> – 실제 이벤트가 발생한 요소</li>
+    <li><code>e.currentTarget</code> – 이벤트 리스너가 등록된 요소</li>
+    <li><code>e.pageX / pageY</code> – 페이지 기준 마우스 위치</li>
+    <li><code>e.key</code> – 누른 키의 값</li>
+    <li><code>e.preventDefault()</code> – 기본 동작 막기 (ex. 링크 이동 방지)</li>
+</ul>
+
+<h3>예시: 클릭한 위치 좌표 출력</h3>
+<pre>
+const box = document.querySelector("#box");
+box.addEventListener("click", (e) => {
+  alert(`클릭 위치: X=${e.pageX}, Y=${e.pageY}`);
+});
+  </pre>
+
+<h3>예시: 키보드 입력 확인</h3>
+<pre>
+document.addEventListener("keydown", (e) => {
+  console.log(`입력된 키: ${e.key}, 코드: ${e.code}`);
+});
+  </pre>
+
+
+<h2>4. 이벤트 전파: 버블링과 캡처링</h2>
+<p>
+    이벤트는 요소 간의 계층 관계에 따라 **전파**됩니다.
+    아래 두 가지 방식이 존재합니다:
+</p>
+<ul>
+    <li><b>버블링(Bubbling)</b>: 이벤트가 하위 요소 → 상위 요소로 전파됨 (기본값)</li>
+    <li><b>캡처링(Capturing)</b>: 이벤트가 상위 요소 → 하위 요소로 전파됨</li>
+</ul>
+
+
+<h2>5. 이벤트 처리 방식 비교</h2>
+<ul>
+    <li><code>onclick</code> : HTML 속성 또는 JavaScript 프로퍼티로 이벤트 처리</li>
+    <li><code>addEventListener()</code> : 여러 이벤트 핸들러를 등록할 수 있고, 더 유연함</li>
+</ul>
+
+<h3>onclick 예</h3>
+<pre>
+button.onclick = () => {
+  alert("이벤트 발생!");
+};
+  </pre>
+
+<h3>addEventListener 예</h3>
+<pre>
+button.addEventListener("click", () => {
+  alert("이벤트 처리!");
+});
+  </pre>
+
+<h2>6. 실습 예제: 글자 수 세기</h2>
+<pre>
+document.querySelector("#bttn").addEventListener("click", () => {
+  const text = document.querySelector("#word").value;
+  document.querySelector("#result").innerText = `글자 수: ${text.length}`;
+});
+  </pre>
+
+<h2>7. 정리</h2>
+<ul>
+    <li>이벤트는 사용자와 상호작용하기 위한 핵심 기능이다.</li>
+    <li>이벤트 객체를 통해 이벤트의 세부 정보에 접근 가능하다.</li>
+    <li>버블링/캡처링은 이벤트 전파 흐름을 이해하는 데 중요하다.</li>
+    <li>addEventListener를 사용하는 것이 확장성과 유지보수 면에서 더 좋다.</li>
+</ul>
+
+</body>
+</html>

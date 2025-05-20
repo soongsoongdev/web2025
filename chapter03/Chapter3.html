@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Chapter 3 - 연산자와 제어문</title>
+</head>
+<body>
+
+<h1>Chapter 3 - 연산자와 제어문</h1>
+
+<h2>1. 연산자</h2>
+<p>연산자는 프로그램의 계산이나 논리를 수행할 때 사용하는 기호입니다.</p>
+<ul>
+    <li>산술 연산자: + - * / % ++ --</li>
+    <li>할당 연산자: = += -= *= /=</li>
+    <li>비교 연산자: == != < > === !==</li>
+    <li>논리 연산자: && || !</li>
+    <li>문자열 연결 연산자: +</li>
+</ul>
+<p>===는 값뿐 아니라 자료형까지 일치해야 true를 반환합니다. 예: 3 === "3"은 false입니다.</p>
+<pre>
+let x = 10;
+let y = 4;
+let result = x + y--;  // result: 14, y: 3
+result = ++x - y;      // x: 11, y: 3, result: 8
+  </pre>
+
+<h2>2. 조건문</h2>
+<p>조건문은 프로그램의 흐름을 조건에 따라 다르게 만들 수 있습니다.</p>
+<ul>
+    <li>if / else 문</li>
+    <li>삼항 연산자: (조건) ? 참일 때 : 거짓일 때</li>
+    <li>switch 문: 여러 경우에 따라 분기</li>
+</ul>
+
+<h2>3. 반복문</h2>
+<p>동일한 작업을 여러 번 수행할 때 사용하는 구조입니다.</p>
+<ul>
+    <li>for: 기본 반복문</li>
+    <li>while / do...while: 조건 반복</li>
+    <li>forEach: 배열 요소 반복</li>
+    <li>for...in: 객체 속성 반복</li>
+    <li>for...of: 배열, 문자열 반복</li>
+</ul>
+<pre>
+for (let i = 1; i <= 3; i++) {
+  console.log("반복:", i);
+}
+
+const students = ["Kim", "Lee", "Park"];
+students.forEach(function(name) {
+  console.log(name + " 학생입니다.");
+});
+
+  </pre>
+
+<h2>4. 반복 제어문</h2>
+<ul>
+    <li>break: 반복문을 중간에 종료</li>
+    <li>continue: 현재 반복만 건너뛰고 다음 반복으로</li>
+</ul>
+<pre>
+for (let i = 1; i <= 5; i++) {
+  if (i === 3) continue; // 3은 건너뜀
+  if (i === 5) break;    // 5에서 반복 종료
+  console.log(i);
+}
+  </pre>
+
+<h2>5. 소수 판별 예제</h2>
+<p>입력한 숫자가 소수인지 확인하는 예제입니다.</p>
+<script>
+    const number = parseInt(prompt('자연수를 입력하세요.'));
+    let isPrime = true;
+
+    if (number === 1) {
+        document.write(number + '은 소수도, 합성수도 아닙니다.<br>');
+        isPrime = false;
+    } else if (number === 2) {
+        isPrime = true;
+    } else {
+        for (let i = 2; i < number; i++) {
+            if (number % i === 0) {
+                isPrime = false;
+                break;
+            }
+        }
+    }
+
+    if (isPrime) {
+        document.write('<strong>' + number + '는 소수입니다.</strong>');
+    } else if (number !== 1) {
+        document.write('<strong>' + number + '는 소수가 아닙니다.</strong>');
+    }
+</script>
+
+</body>
+</html>
